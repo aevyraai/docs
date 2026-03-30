@@ -27,25 +27,15 @@
   "navigation": [
     {
       "group": "Getting started",
-      "pages": ["docs/introduction", "docs/quickstart"]
+      "pages": ["introduction", "quickstart"]
     },
     {
       "group": "Guides",
-      "pages": [
-        "docs/dataset",
-        "docs/providers",
-        "docs/metrics",
-        "docs/cli",
-        "docs/configuration"
-      ]
+      "pages": ["dataset", "providers", "metrics", "cli", "configuration"]
     },
     {
       "group": "API reference",
-      "pages": [
-        "docs/api/dataset",
-        "docs/api/runner",
-        "docs/api/results"
-      ]
+      "pages": ["api/dataset", "api/runner", "api/results"]
     }
   ],
   "footerSocials": {
