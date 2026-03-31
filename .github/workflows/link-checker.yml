@@ -22,5 +22,8 @@ jobs:
             --base "https://aevyra.mintlify.app"
             --exclude "localhost"
             --exclude "test.pypi.org"
+            --no-ignore-case
+            --method GET
+            --accept 200
             '**/*.mdx'
           fail: true
