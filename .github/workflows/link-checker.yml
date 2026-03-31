@@ -19,6 +19,7 @@ jobs:
           args: >
             --verbose
             --no-progress
+            --base "https://aevyra.mintlify.app"
             --exclude "localhost"
             --exclude "test.pypi.org"
             '**/*.mdx'
