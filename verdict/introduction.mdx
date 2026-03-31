@@ -1,27 +1,35 @@
 ---
 title: aevyra verdict — LLM evaluation framework
 sidebarTitle: Introduction
-description: A framework for evaluating and comparing LLM outputs across models and providers.
+description: Benchmark any LLM against your data. Pick the best model, then make it better.
 ---
 
-aevyra-verdict runs completions against any combination of models, scores the responses
-with pluggable metrics, and gives you structured results for comparison — from the
-terminal or in Python.
+Benchmark any LLM against your data. Pick the best model, then make it better.
 
-## What it does
+verdict runs your prompts across any combination of models, scores the responses with
+pluggable metrics, and gives you a side-by-side comparison — so you can choose the right
+model for your task, then track whether your prompt engineering or fine-tuning is actually
+moving the needle.
 
-Given a dataset of prompts in OpenAI message format, aevyra-verdict:
+## Use cases
+
+**Choosing the right model.** Instead of guessing, run your actual prompts across GPT-4o,
+Claude, Gemini, Llama — and pick the one that scores highest on your specific task.
+
+**Measuring improvement.** Establish a baseline score, tweak your system prompt or
+fine-tune your model, re-run verdict. If the number goes up, your change helped. If it
+doesn't, you know to try something else.
+
+**Benchmarking open-source vs closed models.** Measure how a local model stacks up
+against SOTA closed models on your workload — and identify exactly where the gap is.
+
+## How it works
+
+Given a dataset of prompts, aevyra-verdict:
 
 1. Sends each prompt to every model you've configured, concurrently
 2. Scores each response with your chosen metrics (ROUGE, BLEU, exact match, LLM-as-judge, or custom Python functions)
 3. Returns a comparison table with scores, latency, and token usage per model
-
-## When to use it
-
-- Choosing between models for a specific task
-- Catching regressions after a prompt or model change
-- Measuring the effect of system prompt variations
-- Benchmarking a locally-running model against hosted APIs
 
 ## Supported providers
 
@@ -29,16 +37,16 @@ OpenAI, Anthropic, Google (Gemini), Mistral, Cohere, OpenRouter, and any
 OpenAI-compatible API (vLLM, Ollama, Together, etc.).
 
 <CardGroup cols={2}>
-  <Card title="Quick start" icon="bolt" href="/docs/quickstart">
+  <Card title="Quick start" icon="bolt" href="/verdict/quickstart">
     Run your first eval in under 5 minutes
   </Card>
-  <Card title="CLI reference" icon="terminal" href="/docs/cli">
+  <Card title="CLI reference" icon="terminal" href="/verdict/cli">
     All commands and flags
   </Card>
-  <Card title="Providers" icon="server" href="/docs/providers">
+  <Card title="Providers" icon="server" href="/verdict/providers">
     Configure models and local instances
   </Card>
-  <Card title="Metrics" icon="chart-bar" href="/docs/metrics">
+  <Card title="Metrics" icon="chart-bar" href="/verdict/metrics">
     ROUGE, BLEU, LLM-as-judge, custom functions
   </Card>
 </CardGroup>
