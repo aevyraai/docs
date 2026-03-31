@@ -59,6 +59,18 @@
       "href": "https://github.com/aevyraai/verdict"
     }
   },
+  "redirects": [
+    { "source": "/docs/introduction",    "destination": "/verdict/introduction" },
+    { "source": "/docs/quickstart",      "destination": "/verdict/quickstart" },
+    { "source": "/docs/dataset",         "destination": "/verdict/dataset" },
+    { "source": "/docs/providers",       "destination": "/verdict/providers" },
+    { "source": "/docs/metrics",         "destination": "/verdict/metrics" },
+    { "source": "/docs/cli",             "destination": "/verdict/cli" },
+    { "source": "/docs/configuration",   "destination": "/verdict/configuration" },
+    { "source": "/docs/api/dataset",     "destination": "/verdict/api/dataset" },
+    { "source": "/docs/api/runner",      "destination": "/verdict/api/runner" },
+    { "source": "/docs/api/results",     "destination": "/verdict/api/results" }
+  ],
   "footer": {
     "socials": {
       "github": "https://github.com/aevyraai"
