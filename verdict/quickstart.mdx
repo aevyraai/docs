@@ -1,0 +1,116 @@
+---
+title: Quick start
+description: Run your first eval in under 5 minutes.
+---
+
+## Install
+
+```bash
+pip install aevyra-verdict
+```
+
+## Set your API keys
+
+```bash
+export OPENAI_API_KEY=sk-...
+export ANTHROPIC_API_KEY=sk-ant-...
+```
+
+Run `aevyra-verdict providers` to see which keys are configured.
+
+## Prepare a dataset
+
+Create a JSONL file where each line is a conversation in OpenAI message format.
+The `ideal` field is the reference answer used by scoring metrics.
+
+```json
+{"messages": [{"role": "user", "content": "What is the capital of France?"}], "ideal": "Paris"}
+{"messages": [{"role": "user", "content": "Explain binary search in one sentence."}], "ideal": "Binary search repeatedly halves a sorted array to find a target value in O(log n) time."}
+```
+
+## Run your first eval
+
+```bash
+aevyra-verdict run dataset.jsonl -m openai/gpt-5.4-nano -m qwen/qwen3.5-9b
+```
+
+You'll see a progress bar and a comparison table when it finishes:
+
+```
+Eval: dataset | Metric: rouge_rougeL
+------------------------------------------------------------------------
+Model                               Mean     Stdev    Latency   Errors
+------------------------------------------------------------------------
+openai/gpt-5.4-nano                     0.7823      N/A    312.4ms        0
+qwen/qwen3.5-9b                   0.7541      N/A    289.1ms        0
+------------------------------------------------------------------------
+```
+
+## Run against a local model
+
+If you have [Ollama](https://ollama.ai) running locally, you can benchmark against it
+without any API keys:
+
+```bash
+ollama pull llama3.1
+```
+
+```bash
+aevyra-verdict run dataset.jsonl \
+  -m openai/gpt-5.4-nano \
+  --local ollama/llama3.1
+```
+
+Or with a local vLLM instance:
+
+```bash
+aevyra-verdict run dataset.jsonl \
+  -m openai/gpt-5.4-nano \
+  --local http://localhost:8000/v1::meta-llama/Llama-3.1-8B-Instruct
+```
+
+This is useful for benchmarking a fine-tuned model against a hosted baseline before
+deciding whether to deploy it.
+
+## Run against a local model
+
+If you have [Ollama](https://ollama.ai) running locally, you can benchmark against it
+without any API keys:
+
+```bash
+ollama pull llama3.1
+```
+
+```bash
+aevyra-verdict run dataset.jsonl \
+  -m openai/gpt-5.4-nano \
+  --local ollama/llama3.1
+```
+
+Or with a local vLLM instance:
+
+```bash
+aevyra-verdict run dataset.jsonl \
+  -m openai/gpt-5.4-nano \
+  --local http://localhost:8000/v1::meta-llama/Llama-3.1-8B-Instruct
+```
+
+This is useful for benchmarking a fine-tuned model against a hosted baseline before
+deciding whether to deploy it.
+
+## Save results
+
+```bash
+aevyra-verdict run dataset.jsonl -m openai/gpt-5.4-nano -o results.json
+```
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Compare more models" icon="layer-group" href="/docs/providers">
+    Use a config file to manage multiple models including local vLLM instances
+  </Card>
+  <Card title="Add an LLM judge" icon="gavel" href="/docs/metrics">
+    Score responses with an LLM judge instead of reference-based metrics
+  </Card>
+</CardGroup>
