@@ -20,26 +20,26 @@
           {
             "group": "Getting started",
             "pages": [
-              "verdict-src/docs/introduction",
-              "verdict-src/docs/quickstart"
+              "verdict/docs/introduction",
+              "verdict/docs/quickstart"
             ]
           },
           {
             "group": "Guides",
             "pages": [
-              "verdict-src/docs/dataset",
-              "verdict-src/docs/providers",
-              "verdict-src/docs/metrics",
-              "verdict-src/docs/cli",
-              "verdict-src/docs/configuration"
+              "verdict/docs/dataset",
+              "verdict/docs/providers",
+              "verdict/docs/metrics",
+              "verdict/docs/cli",
+              "verdict/docs/configuration"
             ]
           },
           {
             "group": "API reference",
             "pages": [
-              "verdict-src/docs/api/dataset",
-              "verdict-src/docs/api/runner",
-              "verdict-src/docs/api/results"
+              "verdict/docs/api/dataset",
+              "verdict/docs/api/runner",
+              "verdict/docs/api/results"
             ]
           }
         ]
