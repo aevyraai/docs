@@ -1,6 +1,3 @@
 [submodule "verdict-src"]
 	path = verdict-src
 	url = https://github.com/aevyraai/verdict
-[submodule "verdict"]
-	path = verdict
-	url = https://github.com/aevyraai/verdict
