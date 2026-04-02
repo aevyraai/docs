@@ -20,26 +20,26 @@
           {
             "group": "Getting started",
             "pages": [
-              "verdict/docs/introduction",
-              "verdict/docs/quickstart"
+              "verdict/introduction",
+              "verdict/quickstart"
             ]
           },
           {
             "group": "Guides",
             "pages": [
-              "verdict/docs/dataset",
-              "verdict/docs/providers",
-              "verdict/docs/metrics",
-              "verdict/docs/cli",
-              "verdict/docs/configuration"
+              "verdict/dataset",
+              "verdict/providers",
+              "verdict/metrics",
+              "verdict/cli",
+              "verdict/configuration"
             ]
           },
           {
             "group": "API reference",
             "pages": [
-              "verdict/docs/api/dataset",
-              "verdict/docs/api/runner",
-              "verdict/docs/api/results"
+              "verdict/api/dataset",
+              "verdict/api/runner",
+              "verdict/api/results"
             ]
           }
         ]
@@ -60,16 +60,16 @@
     }
   },
   "redirects": [
-    { "source": "/docs/introduction",    "destination": "/verdict/docs/introduction" },
-    { "source": "/docs/quickstart",      "destination": "/verdict/docs/quickstart" },
-    { "source": "/docs/dataset",         "destination": "/verdict/docs/dataset" },
-    { "source": "/docs/providers",       "destination": "/verdict/docs/providers" },
-    { "source": "/docs/metrics",         "destination": "/verdict/docs/metrics" },
-    { "source": "/docs/cli",             "destination": "/verdict/docs/cli" },
-    { "source": "/docs/configuration",   "destination": "/verdict/docs/configuration" },
-    { "source": "/docs/api/dataset",     "destination": "/verdict/docs/api/dataset" },
-    { "source": "/docs/api/runner",      "destination": "/verdict/docs/api/runner" },
-    { "source": "/docs/api/results",     "destination": "/verdict/docs/api/results" }
+    { "source": "/docs/introduction",    "destination": "/verdict/introduction" },
+    { "source": "/docs/quickstart",      "destination": "/verdict/quickstart" },
+    { "source": "/docs/dataset",         "destination": "/verdict/dataset" },
+    { "source": "/docs/providers",       "destination": "/verdict/providers" },
+    { "source": "/docs/metrics",         "destination": "/verdict/metrics" },
+    { "source": "/docs/cli",             "destination": "/verdict/cli" },
+    { "source": "/docs/configuration",   "destination": "/verdict/configuration" },
+    { "source": "/docs/api/dataset",     "destination": "/verdict/api/dataset" },
+    { "source": "/docs/api/runner",      "destination": "/verdict/api/runner" },
+    { "source": "/docs/api/results",     "destination": "/verdict/api/results" }
   ],
   "footer": {
     "socials": {
