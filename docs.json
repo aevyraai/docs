@@ -39,6 +39,12 @@
             ]
           },
           {
+            "group": "Tutorials",
+            "pages": [
+              "reflex/tutorial-security-incidents"
+            ]
+          },
+          {
             "group": "API reference",
             "pages": [
               "reflex/api/optimizer",
