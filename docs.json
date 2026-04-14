@@ -15,6 +15,38 @@
   "navigation": {
     "tabs": [
       {
+        "tab": "Reflex",
+        "groups": [
+          {
+            "group": "Getting started",
+            "pages": [
+              "reflex/introduction",
+              "reflex/quickstart"
+            ]
+          },
+          {
+            "group": "Guides",
+            "pages": [
+              "reflex/dashboard",
+              "reflex/strategies",
+              "reflex/providers",
+              "reflex/configuration",
+              "reflex/cli",
+              "reflex/analysis",
+              "reflex/explainability",
+              "reflex/integrations"
+            ]
+          },
+          {
+            "group": "API reference",
+            "pages": [
+              "reflex/api/optimizer",
+              "reflex/api/result"
+            ]
+          }
+        ]
+      },
+      {
         "tab": "Verdict",
         "groups": [
           {
