@@ -84,12 +84,7 @@
         "label": "GitHub",
         "href": "https://github.com/aevyraai"
       }
-    ],
-    "primary": {
-      "type": "button",
-      "label": "verdict",
-      "href": "https://github.com/aevyraai/verdict"
-    }
+    ]
   },
   "redirects": [
     { "source": "/docs/introduction",    "destination": "/verdict/introduction" },
