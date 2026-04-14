@@ -17,13 +17,6 @@
       {
         "tab": "Reflex",
         "icon": "wand-magic-sparkles",
-        "anchors": [
-          {
-            "anchor": "GitHub",
-            "href": "https://github.com/aevyraai/aevyra-reflex",
-            "icon": "github"
-          }
-        ],
         "groups": [
           {
             "group": "Getting started",
@@ -57,29 +50,12 @@
               "reflex/api/optimizer",
               "reflex/api/result"
             ]
-          },
-          {
-            "group": "More",
-            "pages": [
-              {
-                "page": "GitHub",
-                "href": "https://github.com/aevyraai/aevyra-reflex",
-                "icon": "github"
-              }
-            ]
           }
         ]
       },
       {
         "tab": "Verdict",
         "icon": "gavel",
-        "anchors": [
-          {
-            "anchor": "GitHub",
-            "href": "https://github.com/aevyraai/verdict",
-            "icon": "github"
-          }
-        ],
         "groups": [
           {
             "group": "Getting started",
@@ -104,16 +80,6 @@
               "verdict/api/dataset",
               "verdict/api/runner",
               "verdict/api/results"
-            ]
-          },
-          {
-            "group": "More",
-            "pages": [
-              {
-                "page": "GitHub",
-                "href": "https://github.com/aevyraai/verdict",
-                "icon": "github"
-              }
             ]
           }
         ]
