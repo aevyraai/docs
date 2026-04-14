@@ -17,6 +17,13 @@
       {
         "tab": "Reflex",
         "icon": "wand-magic-sparkles",
+        "anchors": [
+          {
+            "anchor": "GitHub",
+            "href": "https://github.com/aevyraai/aevyra-reflex",
+            "icon": "github"
+          }
+        ],
         "groups": [
           {
             "group": "Getting started",
@@ -56,6 +63,13 @@
       {
         "tab": "Verdict",
         "icon": "gavel",
+        "anchors": [
+          {
+            "anchor": "GitHub",
+            "href": "https://github.com/aevyraai/verdict",
+            "icon": "github"
+          }
+        ],
         "groups": [
           {
             "group": "Getting started",
@@ -92,12 +106,7 @@
         "label": "GitHub",
         "href": "https://github.com/aevyraai"
       }
-    ],
-    "primary": {
-      "type": "button",
-      "label": "Verdict",
-      "href": "https://github.com/aevyraai/verdict"
-    }
+    ]
   },
   "redirects": [
     { "source": "/docs/introduction",    "destination": "/verdict/introduction" },
