@@ -57,6 +57,16 @@
               "reflex/api/optimizer",
               "reflex/api/result"
             ]
+          },
+          {
+            "group": "More",
+            "pages": [
+              {
+                "page": "GitHub",
+                "href": "https://github.com/aevyraai/aevyra-reflex",
+                "icon": "github"
+              }
+            ]
           }
         ]
       },
@@ -94,6 +104,16 @@
               "verdict/api/dataset",
               "verdict/api/runner",
               "verdict/api/results"
+            ]
+          },
+          {
+            "group": "More",
+            "pages": [
+              {
+                "page": "GitHub",
+                "href": "https://github.com/aevyraai/verdict",
+                "icon": "github"
+              }
             ]
           }
         ]
