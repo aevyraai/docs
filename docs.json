@@ -1,6 +1,6 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "theme": "mint",
+  "theme": "prism",
   "name": "aevyra",
   "colors": {
     "primary": "#6E3FF3",
@@ -16,6 +16,7 @@
     "tabs": [
       {
         "tab": "Reflex",
+        "icon": "wand-magic-sparkles",
         "groups": [
           {
             "group": "Getting started",
@@ -48,6 +49,7 @@
       },
       {
         "tab": "Verdict",
+        "icon": "gavel",
         "groups": [
           {
             "group": "Getting started",
@@ -87,7 +89,7 @@
     ],
     "primary": {
       "type": "button",
-      "label": "verdict",
+      "label": "Verdict",
       "href": "https://github.com/aevyraai/verdict"
     }
   },
