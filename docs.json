@@ -28,6 +28,7 @@
           {
             "group": "Guides",
             "pages": [
+              "reflex/modes",
               "reflex/dashboard",
               "reflex/strategies",
               "reflex/providers",
@@ -41,7 +42,8 @@
           {
             "group": "Tutorials",
             "pages": [
-              "reflex/tutorial-security-incidents"
+              "reflex/tutorial-security-incidents",
+              "reflex/tutorial-dev-assistant"
             ]
           },
           {
