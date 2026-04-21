@@ -3,16 +3,28 @@ title: Introduction
 description: Agentic prompt optimization built for production workloads — crash-safe, resumable, and fully auditable.
 ---
 
-aevyra-reflex takes your dataset and prompt, runs evals, diagnoses why scores
-are falling short, and rewrites the prompt — iterating until it converges. Runs
-can be interrupted and resumed at any point without losing work, and every token
-spent is tracked across sessions. Every rewrite is accompanied by a reasoned
-explanation of what changed and why — prompt diffs, score attributions, and the
-full reasoning trace are persisted as a durable audit trail.
+aevyra-reflex diagnoses why scores are falling short and rewrites the prompt —
+iterating until it converges. It works in two modes:
+
+**Standard mode** — point it at an eval dataset. Reflex scores each candidate
+prompt against the dataset and rewrites until the score meets the target.
 
 ```bash
 pip install aevyra-reflex
 aevyra-reflex optimize dataset.jsonl prompt.md -m local/llama3.1:8b -o best_prompt.md
+```
+
+**Pipeline mode** — point it at your agent. Reflex re-runs the full pipeline on
+every candidate prompt so the judge sees tool calls, intermediate outputs, and
+the final answer — not just the output string. Your existing agent code doesn't
+change; you add one wrapper function.
+
+```bash
+aevyra-reflex optimize prompt.md \
+  --pipeline-file pipeline.py \
+  --inputs-file   inputs.json \
+  --judge openrouter/qwen/qwen3-30b-a3b \
+  --judge-criteria criteria.md
 ```
 
 Works with any model — local Ollama or vLLM, OpenAI, Anthropic, Gemini, or
@@ -35,14 +47,14 @@ from any iteration to continue with a different strategy.
   <Card title="Quick start" icon="bolt" href="/reflex/quickstart">
     Optimize your first prompt in under 5 minutes
   </Card>
-  <Card title="Tutorial" icon="book-open" href="/reflex/tutorial-security-incidents">
+  <Card title="Tutorial: standard mode" icon="book-open" href="/reflex/tutorial-security-incidents">
     Full walkthrough: 0.38 → 0.89 on a real format-compliance task
+  </Card>
+  <Card title="Tutorial: pipeline mode" icon="wand-magic-sparkles" href="/reflex/tutorial-dev-assistant">
+    Optimize a tool-calling agent with full execution trace evaluation
   </Card>
   <Card title="Open the dashboard" icon="chart-line" href="/reflex/dashboard">
     Score charts, prompt diffs, reasoning traces, and branch runs
-  </Card>
-  <Card title="Strategies" icon="chess" href="/reflex/strategies">
-    Auto, iterative, structural, PDO, fewshot
   </Card>
 </CardGroup>
 
@@ -86,20 +98,26 @@ the specific examples it was optimized on.
 
 ## What it does
 
-Given a dataset and a starting prompt, aevyra-reflex:
+In both modes, aevyra-reflex runs the same three-step loop:
 
 1. Runs a baseline eval on a held-out test set to measure the starting score
 2. Optimizes the prompt on the training set, iterating until the score meets the target
 3. Re-evaluates on the held-out test set so reported improvement is honest
-4. Returns the optimized prompt with a full before/after comparison, token costs, and significance test
+
+The difference is what "eval" means. In standard mode it scores a model response against an ideal. In pipeline mode it re-runs your full agent and scores the resulting execution trace.
 
 ## When to use it
 
-- You ran verdict and model A beats model B — you want to close the gap through prompt engineering, not by switching models
+**Standard mode** — when the prompt directly produces the output you want to score:
 - A model scores poorly on your eval — you want a better prompt, not a bigger model
+- You ran verdict and model A beats model B — you want to close the gap through prompt engineering
 - You're iterating on a system prompt and want to automate the feedback loop
-- You want to understand *why* a prompt works (the analysis teaches prompt engineering)
 - You're migrating a prompt from one model family to another (e.g. Claude → Llama)
+
+**Pipeline mode** — when the prompt lives inside an agent and correctness depends on behaviour you can't see from the output string alone:
+- Your agent calls tools and you need the judge to verify the right ones were called
+- A static (input, ideal) dataset can't tell whether the model used its tools or answered from memory
+- You want the optimizer to diagnose grounding failures, not just surface-level output differences
 
 ## Optimization strategies
 
@@ -143,6 +161,8 @@ Each phase hands its best prompt to the next. Structural made the biggest jump (
 
 ## How it fits together
 
+**Standard mode**
+
 ```mermaid
 flowchart LR
     DS[Dataset\nJSONL / CSV]:::data
@@ -161,6 +181,31 @@ flowchart LR
     classDef reflex  fill:#9B6BFF,color:#fff,stroke:none
     classDef eval    fill:#3FBFFF,color:#fff,stroke:none
     classDef output  fill:#2ECC71,color:#fff,stroke:none
+```
+
+**Pipeline mode**
+
+```mermaid
+flowchart LR
+    IN[Raw inputs\nJSON array]:::data
+    ST[Strategy\nauto]:::reflex
+    RM[Reasoning\nmodel]:::reflex
+    PL[Your pipeline\npipeline_fn]:::pipeline
+    JD[Judge\nfull trace]:::eval
+    OUT[Optimized\nprompt]:::output
+
+    IN --> ST
+    ST -->|rewrites| RM
+    RM -->|candidate prompt| PL
+    PL -->|AgentTrace| JD
+    JD -->|score feedback| ST
+    ST --> OUT
+
+    classDef data     fill:#6E3FF3,color:#fff,stroke:none
+    classDef reflex   fill:#9B6BFF,color:#fff,stroke:none
+    classDef pipeline fill:#A78BFA,color:#fff,stroke:none
+    classDef eval     fill:#3FBFFF,color:#fff,stroke:none
+    classDef output   fill:#2ECC71,color:#fff,stroke:none
 ```
 
 <CardGroup cols={2}>
