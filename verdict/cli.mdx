@@ -40,13 +40,6 @@ aevyra-verdict run <dataset> [options]
 | `--judge-prompt` | Path to a custom judge prompt template (`.md` or `.txt`). |
 | `--custom-metric` | Custom scoring function in `file.py:function_name` format. Repeat for multiple. |
 
-### Dataset field mapping
-
-| Flag | Description |
-|---|---|
-| `--input-field` | Field name to use as the user message (for JSONL that doesn't follow a standard schema). Example: `--input-field question` |
-| `--output-field` | Field name to use as the reference answer. Omit for label-free datasets. Example: `--output-field answer` |
-
 ### Output
 
 | Flag | Short | Description |

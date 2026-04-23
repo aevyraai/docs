@@ -105,10 +105,6 @@ dataset = Dataset.from_jsonl("data.jsonl")
 dataset = Dataset.from_jsonl("sharegpt_data.jsonl", format="sharegpt")
 dataset = Dataset.from_jsonl("alpaca_data.jsonl", format="alpaca")
 
-# Arbitrary JSONL with custom field names
-dataset = Dataset.from_jsonl("data.jsonl", input_field="question", output_field="answer")
-dataset = Dataset.from_jsonl("data.jsonl", input_field="prompt", output_field=None)  # label-free
-
 # CSV — default column names (input, ideal)
 dataset = Dataset.from_csv("data.csv")
 
@@ -131,17 +127,6 @@ dataset = Dataset.from_list([
 
 # ShareGPT inline
 dataset = Dataset.from_list(sharegpt_records, format="sharegpt")
-```
-
-## Label-free datasets
-
-When your data has no reference answers, omit `output_field` (or use `output_field=None`).
-Use `LLMJudge` or a `CustomMetric` — reference-based metrics (`RougeScore`, `BleuScore`,
-`ExactMatch`) will raise a clear error upfront.
-
-```python
-dataset = Dataset.from_csv("questions.csv", output_field=None)
-print(dataset.has_ideals())  # False
 ```
 
 ## Filtering

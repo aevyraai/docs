@@ -52,13 +52,13 @@ If you have [Ollama](https://ollama.com) running locally, you can benchmark agai
 without any API keys:
 
 ```bash
-ollama pull llama3.1:8b
+ollama pull llama3.1
 ollama pull mistral
 ```
 
 ```bash
 aevyra-verdict run examples/sample_data.jsonl \
-  -m local/llama3.1:8b \
+  -m local/llama3.1 \
   -m local/mistral \
   --base-url http://localhost:11434/v1
 ```

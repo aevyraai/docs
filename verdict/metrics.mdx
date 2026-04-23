@@ -52,15 +52,6 @@ These compare the model's output against a known-good `ideal` answer in the data
   </Accordion>
 </AccordionGroup>
 
-## Label-free evaluation
-
-When your dataset has no reference answers, use `LLMJudge` or a `CustomMetric`.
-The runner checks `metric.requires_ideal` against `dataset.has_ideals()` before any
-API calls are made and raises a clear error naming each offending metric.
-
-Reference-based metrics (`RougeScore`, `BleuScore`, `ExactMatch`) set `requires_ideal = True`
-and will be rejected upfront on label-free datasets.
-
 ## LLM-as-judge
 
 Uses a separate model to evaluate response quality on configurable criteria.
@@ -76,19 +67,6 @@ LLMJudge(judge_provider=judge)
 
 The judge scores on a 1–5 scale (normalized to 0.0–1.0) and returns its reasoning
 alongside the score.
-
-### Multi-dimensional scoring
-
-Score across multiple dimensions in a single API call. The overall score is the mean across dimensions; individual scores are available in `result.sub_scores`.
-
-```python
-LLMJudge(
-    judge_provider=judge,
-    dimensions=["clarity", "accuracy", "conciseness"],
-)
-# result.score       → mean across all dimensions (0.0–1.0)
-# result.sub_scores  → {"clarity": 0.8, "accuracy": 0.6, "conciseness": 1.0}
-```
 
 ### Custom criteria
 
