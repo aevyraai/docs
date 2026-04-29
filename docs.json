@@ -15,6 +15,63 @@
   "navigation": {
     "tabs": [
       {
+        "tab": "Origin",
+        "icon": "magnifying-glass",
+        "groups": [
+          {
+            "group": "Getting started",
+            "pages": [
+              "origin/introduction",
+              "origin/quickstart"
+            ]
+          },
+          {
+            "group": "Guides",
+            "pages": [
+              "origin/methods"
+            ]
+          },
+          {
+            "group": "Tutorials",
+            "pages": [
+              "origin/tutorial-support-triage"
+            ]
+          },
+          {
+            "group": "API reference",
+            "pages": [
+              "origin/api/attribution"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Witness",
+        "icon": "eye",
+        "groups": [
+          {
+            "group": "Getting started",
+            "pages": [
+              "witness/introduction",
+              "witness/quickstart"
+            ]
+          },
+          {
+            "group": "Guides",
+            "pages": [
+              "witness/adapters",
+              "witness/interceptors"
+            ]
+          },
+          {
+            "group": "API reference",
+            "pages": [
+              "witness/api/trace"
+            ]
+          }
+        ]
+      },
+      {
         "tab": "Reflex",
         "icon": "wand-magic-sparkles",
         "groups": [
