@@ -28,18 +28,24 @@
           {
             "group": "Guides",
             "pages": [
-              "origin/methods"
+              "origin/methods",
+              "origin/adapters",
+              "origin/providers",
+              "origin/cli"
             ]
           },
           {
             "group": "Tutorials",
             "pages": [
-              "origin/tutorial-support-triage"
+              "origin/tutorial-support-triage",
+              "origin/tutorial-coding-agent",
+              "origin/tutorial-bring-your-own-trace"
             ]
           },
           {
             "group": "API reference",
             "pages": [
+              "origin/api/diagnose",
               "origin/api/attribution"
             ]
           }
