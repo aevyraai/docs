@@ -34,7 +34,9 @@
           {
             "group": "Tutorials",
             "pages": [
-              "origin/tutorial-support-triage"
+              "origin/tutorial-support-triage",
+              "origin/tutorial-coding-agent",
+              "origin/tutorial-bring-your-own-trace"
             ]
           },
           {
