@@ -119,6 +119,32 @@
         ]
       },
       {
+        "tab": "Forge",
+        "icon": "hammer",
+        "groups": [
+          {
+            "group": "Getting started",
+            "pages": [
+              "forge/introduction",
+              "forge/quickstart"
+            ]
+          },
+          {
+            "group": "Concepts",
+            "pages": [
+              "forge/concepts/recipe",
+              "forge/concepts/playbook"
+            ]
+          },
+          {
+            "group": "Tutorials",
+            "pages": [
+              "forge/tutorial-colab-quickstart"
+            ]
+          }
+        ]
+      },
+      {
         "tab": "Verdict",
         "icon": "gavel",
         "groups": [
