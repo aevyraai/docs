@@ -137,6 +137,12 @@
             ]
           },
           {
+            "group": "Guides",
+            "pages": [
+              "forge/cli"
+            ]
+          },
+          {
             "group": "Tutorials",
             "pages": [
               "forge/tutorial-colab-quickstart",
