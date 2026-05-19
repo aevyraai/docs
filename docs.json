@@ -139,7 +139,8 @@
           {
             "group": "Tutorials",
             "pages": [
-              "forge/tutorial-colab-quickstart"
+              "forge/tutorial-colab-quickstart",
+              "forge/tutorial-quant"
             ]
           }
         ]
