@@ -8,7 +8,8 @@ User-facing documentation in `.mdx`. Pulled by the aevyra.ai docs site
 - `quickstart.mdx` — `pip install` → first tuned recipe in 15 min
 - `concepts/recipe.mdx` — the artifact (VLLMConfig, layers, lineage)
 - `concepts/playbook.mdx` — the agent's instruction manual
-- `tutorial-colab-quickstart.mdx` — dry-run and real-run walkthrough with logs
+- `tutorial-colab-quickstart.mdx` — dry-run and real-run walkthrough with logs (Layer 1)
+- `tutorial-quant.mdx` — Layer 2 quantization walkthrough; INT4 AWQ calibration, hardware gates, CLI flags
 
 ## Planned
 
