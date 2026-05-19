@@ -10,6 +10,7 @@ User-facing documentation in `.mdx`. Pulled by the aevyra.ai docs site
 - `concepts/playbook.mdx` — the agent's instruction manual
 - `tutorial-colab-quickstart.mdx` — dry-run and real-run walkthrough with logs (Layer 1)
 - `tutorial-quant.mdx` — Layer 2 quantization walkthrough; INT4 AWQ calibration, hardware gates, CLI flags
+- `cli.mdx` — Full CLI reference: tune, resume, report, playbook; all flags including layer-control flags
 
 ## Planned
 

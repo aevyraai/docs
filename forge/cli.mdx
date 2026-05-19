@@ -1,0 +1,198 @@
+---
+title: CLI reference
+description: All commands and flags for the aevyra-forge CLI.
+---
+
+## tune
+
+Start a new tuning run or resume an interrupted one.
+
+```bash
+aevyra-forge tune [OPTIONS]
+aevyra-forge tune resume
+```
+
+`resume` reads all parameters from the run's `config.json` — no flags needed.
+
+### Options
+
+| Flag | Default | Description |
+|---|---|---|
+| `--model` | *(required)* | HuggingFace model ID or local path (e.g. `Qwen/Qwen2.5-3B`, `meta-llama/Llama-3.2-1B-Instruct`) |
+| `--device` | `cuda` | GPU backend: `cuda`, `rocm`, or `cpu`. `cuda` and `rocm` auto-detect GPU name and VRAM via `nvidia-smi` / `rocm-smi`. Use `cpu` with `--dry-run` |
+| `--workload` | *(required)* | Path to workload JSONL. Each line must have a `"prompt"` field and optionally `"expected_output_tokens"` and `"arrival_offset_s"` |
+| `--concurrency` | `8` | Max concurrent in-flight requests during benchmarking. T4/A10: 8–16. A100/H100: 32–64 |
+| `--llm` | `anthropic/claude-sonnet-4-6` | Agent LLM in `provider/model` format. Examples: `openrouter/meta-llama/llama-3.1-70b`, `openai/gpt-4o`, `ollama/qwen3:8b` |
+| `--max-experiments` | `50` | Total experiment budget across all layers |
+| `--max-hours` | `12.0` | Wall-clock time limit in hours |
+| `--max-dollars` | — | LLM spend cap in USD |
+| `--accuracy-floor` | `0.99` | Minimum acceptable accuracy. Experiments that regress below this are not kept regardless of throughput gains |
+| `--playbook` | *(bundled)* | Path to a custom playbook `.md` file. Defaults to the bundled `playbook.md` |
+| `--run-dir` | `.forge` | Root directory for run storage |
+| `--dry-run` | `false` | Skip vLLM; use synthetic bench results. Useful for testing the loop without a GPU |
+| `--verbose` | `false` | Debug logging |
+
+### Layer control
+
+| Flag | Default | Description |
+|---|---|---|
+| `--skip-config` | `false` | Skip Layer 1 config tuning — go straight to Layer 2 quantization |
+| `--skip-quant` | `false` | Skip Layer 2 quantization |
+| `--skip-kernel` | `false` | Skip Layer 3 kernel synthesis |
+| `--max-config-experiments N` | — | Cap Layer 1 at N experiments, then escalate to Layer 2 regardless of convergence. Useful on T4 where the config search space is narrow |
+| `--max-quant-experiments N` | — | Cap Layer 2 at N experiments |
+
+### Examples
+
+```bash
+# Standard overnight run — L1 then L2 automatically
+aevyra-forge tune \
+  --model Qwen/Qwen2.5-3B \
+  --device cuda \
+  --workload prod_trace.jsonl \
+  --max-experiments 50 \
+  --max-hours 10
+
+# Cap L1 to 3 experiments on a T4 (small config search space)
+aevyra-forge tune \
+  --model Qwen/Qwen2.5-3B \
+  --device cuda \
+  --workload examples/sample_workload.jsonl \
+  --max-config-experiments 3
+
+# Skip L1 — quantize only (you already have a tuned config)
+aevyra-forge tune \
+  --model Qwen/Qwen2.5-3B \
+  --device cuda \
+  --workload examples/sample_workload.jsonl \
+  --skip-config
+
+# Use a different agent LLM
+aevyra-forge tune \
+  --model Qwen/Qwen2.5-3B \
+  --device cuda \
+  --workload examples/sample_workload.jsonl \
+  --llm openrouter/meta-llama/llama-3.1-70b
+
+# Dry-run on CPU (no vLLM, no GPU)
+aevyra-forge tune \
+  --model meta-llama/Llama-3.2-1B-Instruct \
+  --device cpu \
+  --workload examples/sample_workload.jsonl \
+  --max-experiments 5 \
+  --dry-run
+
+# Resume latest interrupted run (zero args)
+aevyra-forge tune resume
+```
+
+### Run directory layout
+
+```
+.forge/
+  runs/
+    001_2026-05-13T04-10-00/
+      config.json          ← model, hardware, workload path, all CLI flags
+      experiments.jsonl    ← append-only log (one line per experiment)
+      experiments.tsv      ← human-readable table
+      experiments.json     ← structured table for tooling
+      best_recipe.yaml     ← best config found so far
+      completed.json       ← written on clean finish; absent = interrupted
+```
+
+A run with `experiments.jsonl` but no `completed.json` was interrupted and can be resumed with `aevyra-forge tune resume`.
+
+---
+
+## report
+
+Print a summary of a completed or in-progress run.
+
+```bash
+aevyra-forge report <run-dir> [OPTIONS]
+```
+
+### Arguments
+
+| Argument | Description |
+|---|---|
+| `run-dir` | Path to a run directory (e.g. `.forge/` or `.forge/runs/001_2026-05-13T04-10-00`) |
+
+### Options
+
+| Flag | Default | Description |
+|---|---|---|
+| `--format` | `table` | Output format: `table` or `json` |
+
+### Output
+
+```
+=== Forge Report: .forge/runs/001_2026-05-13T04-10-00 ===
+
+Total experiments: 7
+Best score:        2.2509
+Best recipe ID:    c3d4e5f6
+Best generation:   6
+Throughput:        516.4 tok/s
+P99 latency:       181 ms
+
+exp  id        layer   score   throughput  p99_ms  accuracy  kept  rationale
+0    a1b2c3d4  config  1.0000  229.4       312     0.991     ✓     baseline
+1    b2c3d4e5  config  1.0467  240.0       298     0.993     ✓     enable_prefix_caching
+2    c3d4e5f6  config  0.9942  228.1       341     0.989     ✗     max_num_seqs=64 stressed VRAM
+3    d4e5f6a7  quant   1.2703  290.9       261     0.990     ✗     int8: score below best
+4    c3d4e5f6  quant   2.2509  516.4       181     0.992     ✓     int4_awq: 60% VRAM freed for KV cache
+```
+
+---
+
+## playbook
+
+Inspect the active playbook.
+
+```bash
+aevyra-forge playbook show [--playbook PATH]
+aevyra-forge playbook validate [--playbook PATH]
+```
+
+### Subcommands
+
+| Subcommand | Description |
+|---|---|
+| `show` | Print the full playbook text to stdout |
+| `validate` | Check the playbook's structure and YAML front-matter. Exits non-zero if invalid |
+
+### Options
+
+| Flag | Default | Description |
+|---|---|---|
+| `--playbook` | *(bundled)* | Path to a custom playbook file. Defaults to the bundled `playbook.md` |
+
+### Examples
+
+```bash
+# View the bundled playbook
+aevyra-forge playbook show
+
+# Validate a custom playbook before a run
+aevyra-forge playbook validate --playbook my_playbook.md
+
+# Pipe to less
+aevyra-forge playbook show | less
+```
+
+---
+
+## LLM providers
+
+The `--llm` flag follows a `provider/model` convention shared across the Aevyra stack:
+
+| Provider | Format | Required env var |
+|---|---|---|
+| Anthropic *(default)* | `anthropic/claude-sonnet-4-6` | `ANTHROPIC_API_KEY` |
+| OpenAI | `openai/gpt-4o` | `OPENAI_API_KEY` |
+| OpenRouter | `openrouter/meta-llama/llama-3.1-70b` | `OPENROUTER_API_KEY` |
+| Together AI | `together/meta-llama/Llama-3-70b` | `TOGETHER_API_KEY` |
+| Groq | `groq/llama3-70b-8192` | `GROQ_API_KEY` |
+| Ollama *(local)* | `ollama/qwen3:8b` | — |
+| Any OpenAI-compat | `openai/model-name` + custom base URL | — |
